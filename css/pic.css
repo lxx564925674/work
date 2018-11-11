@@ -1,0 +1,51 @@
+.pic-list >ul {width:100%;height:300px;background-color: #fff;padding:15px;}
+.pic-list >ul li{
+	float: left;
+	position: relative;
+}
+.pic-list >ul li p{
+	position: absolute;
+	bottom:0px;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding-top: 10px;
+	font-size: 16px;
+	background-color: #fff;
+}
+.pic-list >ul li span{
+	position: absolute;
+	top:0;
+	left: 0;
+	width:30px;
+	height:30px;
+	background-color:#3690cf;
+	text-align: center;
+	line-height:30px;
+	color: #fff;
+}
+.tab-pane ul li{
+	width: 20%;
+	height: 250px;
+	float: left;
+	overflow: hidden;
+	position: relative;
+}
+	
+.tab-pane ul li:hover img{
+	transform: scale(1.1);
+}
+.tab-pane ul li img{
+	transition: all 0.5s;
+}
+.tab-pane ul li p{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color:rgba(0,0,0,0.3);
+	text-align: center;
+	margin: 0;
+	color:#fff;
+	line-height: 20px;
+}

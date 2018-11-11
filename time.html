@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/time.css"/>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<title>Document</title>
+</head>
+<body>
+	<div id="header" class='text-center'>
+		<div class="container nav nav-pills" >
+			<div class="col-md-3">
+				<h3>李晓翔的博客</h3>
+			</div>
+			<div class="col-md-1"><a href="./index.html">首页</a></div>
+			<div class="col-md-1"><a href="./about.html">关于我</a></div>
+			<div class="col-md-1"><a href="./pic.html">图片锦集</a></div>
+			<div class="col-md-1"><a href="./life.html">慢生活</a></div>
+			<div class="col-md-1"><a href="./study.html">学无止境</a></div>
+			<div class="col-md-1"><a href="./time.html">时间轴</a></div>
+			<div class="col-md-1"><a href="./commen.html">留言</a></div>
+			<div class="col-md-1">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</div>
+		</div>
+	</div>
+	<div class="container" id='v1'>
+		<div id='timeList'>
+			<ul >
+				<li v-for="(item,index) of arr2">
+					<p><span style="display: inline-block;width:250px;">{{time(item.pubtime)}}</span> <a v-bind:href="artHref+'?id='+item.artid" >{{item.title}}</a></p>
+				</li>
+				
+			</ul>
+			
+			<!---------------------分页部分-------------------------->
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li @click="pageup(pageNum-1)">
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li  @click="pageup(0)"><a href="#">首页</a></li>
+			    <li  v-for="(item,index) of arr" @click="pageup(Math.ceil(index/10))"    v-if='index%10==0'><a href="#">{{(index/10)+1}}</a></li>
+			    <li  @click="pageup(Math.ceil(arr2.length/10)+1)"><a href="#">尾页</a></li>
+			    <li @click="pageup(pageNum+1)">
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+	<script src="../js/public.js"></script>
+	<script>
+		var Data=[];
+		var Data2=[];
+		function v1(Data){
+			const v1 =new Vue({
+				el:'#v1',
+				data:{
+					content:'',
+					arr:Data,
+					arr2:Data2,
+					pageNum:0,
+					artHref:'http://www.work.com/art.html'
+				},
+				methods:{
+					time:function(timestamp) {
+				        return new Date( parseInt(timestamp) ).toLocaleString().replace(/:\d{1,2}$/,' '); 
+				 },
+				 pageup:function(pageNum){
+				 	console.log(pageNum)
+				 	if(pageNum<0){
+				 		pageNum=0;
+				 	}else if(pageNum>Math.floor(this.arr.length/10)){
+				 		pageNum=Math.floor(this.arr.length/10);
+				 	}
+				 	this.pageNum = pageNum;
+				 	var num=(pageNum)*10;
+				   	this.arr2=this.arr.slice(num,num+10);
+				   	console.log(num,num+10)
+				   }
+					
+				}
+					
+			})
+		}
+		
+			ajax({
+		    	url: "php/index.php",  
+			    type : "POST", 
+			    async : true,  
+			    data : {   
+			    		sort:'pubtime'
+			    },
+			    success : function(data){   //返回接受信息
+			    	console.log(data);
+					data=JSON.parse(data);
+					for(var i=0;i<data.length;i++){
+							Data.push(data[i]);
+					}
+					for(var i=0;i<data.length;i++){
+							if(i>=10){
+								break;
+							}
+							Data2.push(data[i]);
+							
+					}
+					v1(Data);
+			    }
+			});
+		
+		
+	</script>
+</body>
+</html>

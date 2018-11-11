@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/adm.css">
+<script src="../release/wangEditor.min.js"></script>
+ <script src='../js/public.js'></script>
+ <script src="../js/quit.js"></script>
+<script src='../js/fn.js'></script>
+<style>
+	#editor{
+		margin-left:150px;
+	}
+	
+</style>
+</head>
+<body>
+    <header>
+        <h1>Blog后台管理界面</h1>
+        <p style="position: absolute;top:40px;right:300px;width：300px">
+        	<img src="../images/1.jpg" style='display:inline-block;vertical-align:middle;border-radius:50%;' width="80px" height="80px"  alt="" />
+        	<span style="vertical-align:middle;">
+        		欢迎您登录blog管理系统
+        		<a onclick="quit()">退出</a>
+        	</span>
+        </p>
+    </header>
+    <div id="main">
+        <div id="lside">
+            <aside>
+                <h4>栏目管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/catlist.html">栏目列表</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>文章管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/artlist.html">文章列表</a></li>
+                    <li><a href="http://www.work.com/bgPage/artadd.html">发布文章</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>个人中心</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/bloger.html">修改密码</a></li>
+                    <li><a href="login">退出登陆</a></li>
+                </ul>
+            </aside>
+        </div>
+        <div id="rside">
+            <form>
+                <div class="form-group">
+                    <label>标题:</label>
+                    <p>
+                        <input type="text" name="title" id='title' value=''>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>图标:</label>
+                    <p>
+                        <input type="file" name="fileImg" value='' id='fileImg' onchange="getfileImg()">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>栏目:</label>
+                    <p>
+                        <select name="cat_id" id='catid'>
+            				<option value="1" selected="selected" >慢生活</option>
+            				<option value="2" selected="selected">学无止境</option>
+            				<option value="3" selected="selected">网站建设</option>
+            				<option value="4" selected="selected">人物写真</option>
+            				<option value="5" selected="selected">旅游风光</option>
+            				<option value="6" selected="selected">萌宠</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>简介:</label>
+                    <p>
+                        <textarea id='introduction'></textarea>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label >内容:</label>
+                   
+                  
+                </div>
+                
+                    <div id="editor">
+				      <p></p>
+				    </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <p>
+                        <button type="button" id='btn2'>提交</button>
+                    </p>
+                </div>
+            </form>
+            
+            
+            
+            
+            <!--                    debug   -->
+
+			<!--  -->
+       
+        </div>
+    </div>
+    <footer>
+        Copyright &copy; 2015 · GeneratePress · WordPress
+    </footer>
+    
+  
+   
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript">
+  		if(document.cookie.indexOf("user=")==-1){
+  			alert('未登录状态,请返回登录');
+  			location.href='http://www.work.com/bgPage/login.html';
+  		}
+        var E = window.wangEditor;
+        var editor = new E('#editor');
+        editor.customConfig.uploadImgServer = "php/uploadImg.php";  // 上传图片到服务器
+        editor.customConfig.uploadFileName = "file";      //文件名称  
+        editor.customConfig.uploadImgHeaders = {    //header头信息 
+            'Accept': 'text/x-json'
+        }
+        editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024   //设置限制上传图片大小为3M
+     
+        editor.customConfig.debug = true; //是否开启Debug 默认为false 建议开启 可以看到错误
+        // editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0; // 同上 二选一
+        //图片在编辑器中回显
+        editor.customConfig.uploadImgHooks = {  
+            error: function (xhr, editor) {
+                alert("2：" + xhr + "请查看你的json格式是否正确，图片并没有上传");
+            },
+            fail: function (xhr, editor, result) {
+                alert("1：" + xhr + "请查看你的json格式是否正确，图片上传了，但是并没有回显");
+            },
+            success:function(xhr, editor, result){
+                console.log(result)
+            },
+            customInsert: function (insertImg, result, editor) {
+                // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片）
+                insertImg(result.url);
+            }
+        };
+        editor.customConfig.showLinkImg = true; //是否开启网络图片，默认开启的。
+        editor.create()
+        
+        
+        
+        
+        
+        
+ 
+	 btn2.onclick=function(){
+	 	if(catid.value && title.value && editor.txt.html() && art_Img && introduction.value){
+	 		
+	 	}else{
+	 		alert('请将内容填写完整');
+	 		return false;
+	 	}
+	 	ajax({
+		    url : "php/artadd.php",  // url---->地址
+		    type : "POST",   // type ---> 请求方式
+		    async : true,   // async----> 同步：false，异步：true 
+		    data : {   //传入信息
+		    		type:'isisss',
+		    		catid:catid.value,
+			        title:title.value,
+			        pubtime:Date.parse(new Date())*1,
+			        introduction:introduction.value,
+			        content:editor.txt.html().replace(/&nbsp;/g,'#'),
+			        art_Img:art_Img
+		    	
+		    },
+		    success : function(data){   //返回接受信息
+		         alert('发表成功');
+		         window.location.reload();
+		        
+		    }
+		    });
+
+	 	
+	 }
+	 
+	 
+	var art_Img ='';
+	
+
+ 
+	   
+</script>
+</body>
+</html>

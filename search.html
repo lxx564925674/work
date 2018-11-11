@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<title>Document</title>
+</head>
+<body>
+	<div id="header" class='text-center'>
+		<div class="container nav nav-pills" >
+			<div class="col-md-3">
+				<h3>李晓翔的博客</h3>
+			</div>
+			<div class="col-md-1"><a href="./index.html">首页</a></div>
+			<div class="col-md-1"><a href="./about.html">关于我</a></div>
+			<div class="col-md-1"><a href="./pic.html">图片锦集</a></div>
+			<div class="col-md-1"><a href="./life.html">慢生活</a></div>
+			<div class="col-md-1"><a href="./study.html">学无止境</a></div>
+			<div class="col-md-1"><a href="./time.html">时间轴</a></div>
+			<div class="col-md-1"><a href="./commen.html">留言</a></div>
+			<div class="col-md-1">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		
+		<!---------------------左侧部分-------------------------->
+		<div class="col-md-8" id='v1' style="height:3000px;">
+			
+
+
+				
+				
+			<!---------------------站长推荐部分-------------------------->
+
+			
+			<div class="recommend" id='recommend' >
+				<div class="clearfix recommend-list"  v-for="(item,index) of arr2">
+					<h4><a v-bind:href="artHref+'?id='+item.artid" >{{item.title}}</a></h4>
+					<div class="pull-left recommend-img">
+						<img v-bind:src="item.art_img" alt="" width='100%'height="auto"/>
+					</div>
+					<div class="pull-left recommend-text">
+						<p>
+							{{item.introduction}}
+						</p>
+						<p class="recommend-msg">
+							
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							<b>李晓翔</b>
+							<span class="glyphicon glyphicon-th-list"></span>
+							<b>{{item.cat_name}}</b>
+							<span class="glyphicon glyphicon-time"></span>
+							<b>{{time(item.pubtime)}}</b>
+							<span class="glyphicon glyphicon-eye-open"></span>
+							<b>{{item.read_num}}已阅读</b>
+						</p>
+					</div>
+				</div>
+		
+				
+			</div>
+			<!---------------------分页部分-------------------------->
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li @click="pageup(pageNum-1)">
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li  @click="pageup(0)"><a href="#">首页</a></li>
+			    <li  v-for="(item,index) of arr" @click="pageup(Math.ceil(index/10))"    v-if='index%10==0'><a href="#">{{(index/10)+1}}</a></li>
+			    <li  @click="pageup(Math.ceil(arr2.length/10)+1)"><a href="#">尾页</a></li>
+			    <li @click="pageup(pageNum+1)">
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+		
+		
+		<!---------------------右侧部分-------------------------->
+		<div class="col-md-4" id='v2'>
+			
+				<!---------------------标签栏部分-------------------------->
+			<div class="tag" v-for="(item,index) of arr.slice(0,2)">
+				<a v-bind:href="artHref+'?id='+item.artid" >
+					<img v-bind:src="item.art_img" width="100%" height="100%" />
+					
+					<span class="pos-a"style="width:75px">{{item.cat_name}}</span>
+					<p class="pos-a">{{item.title}}</p>
+				</a>
+			</div>
+			
+			
+			
+			<!---------------------博主信息-------------------------->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					博主介绍
+				</div>
+				<div class="panel-body blog-panel">
+					
+					<p>
+						<img src="../images/8.jpg" width="30%" height=""  hspace="5" vspace="5"/>
+						<strong>李晓翔</strong>
+						，一个90后草根男站长！一直潜心研究web前端技术，一边学习一边积累经验。文字环绕，文字环绕，文字环绕，文字环绕，文字环绕，文字环绕，文字环绕，文字环绕，
+					</p>
+				</div>
+			</div>
+			
+			
+			<!---------------------固定部分-------------------------->
+			<div id='willFiexd'>
+				<!---------------------图文精选-------------------------->
+				<div class="panel panel-default pic-panel">
+					<div class="panel-heading">
+						图文精选
+					</div>
+					
+					<div class="panel-body">
+						<img src="../images/2.jpg" alt="" class="pull-left" width="95" height="88px"/>
+						<img src="../images/1.jpg" alt="" class="pull-left" width="95" height="88px"/>
+						<img src="../images/4.jpg" alt="" class="pull-left" width="95" height="88px"/>
+						<img src="../images/5.jpg" alt="" class="pull-left" width="95" height="88px"/>
+						<img src="../images/7.jpg" alt="" class="pull-left" width="95" height="88px"/>
+						<img src="../images/8.jpg" alt="" class="pull-left" width="95" height="88px"/>
+					</div>
+				</div>
+				
+				
+				<!---------------------排行-------------------------->
+				<div class="panel panel-default pic-panel" id='pic-panel'>
+					<div class="panel-heading" id='panel-heading'>
+						<span class="panel-heading-left">
+							<a id='newArt'  @click="fn1">最新文章</a>
+						</span>
+						<span>
+							<a id='clickArt'  @click="fn2">点击排行</a>
+						</span>
+					</div>
+					
+					<div class="panel-body " id='panelBody1' v-show="content">
+						<ul style='padding-left:50px;' >
+							<li v-for="(item,index) of arr.slice(0,10)"><a v-bind:href="artHref+'?id='+item.artid" >{{item.title}}</a></li>
+						</ul>
+					</div>
+					<div class="panel-body" id='panelBody2' v-show="!content">
+						<ul style='padding-left:50px;'>
+							<li>个人博客模板《show time》蓝色版</li>
+							<li>我是怎么认识自己的</li>
+							<li>帝国cms列表页调用关键字tag标签</li>
+							<li>个人博客模板《show time》蓝色版</li>
+						</ul>
+					</div>
+				</div>
+				
+				<!---------------------友情链接-------------------------->
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						友情链接
+					</div>
+					
+					<div class="panel-body">
+						李晓翔个人博客
+					</div>
+				</div>
+				<!---------------------二维码-------------------------->
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						关注我，么么哒
+					</div>
+					
+					<div class="panel-body" style="text-align: center;">
+						<img src="../images/timg.gif" alt="" width="180px" height="auto"/>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+	<!---->
+
+	<!---->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+	<script src="../js/index.js"></script>
+	<script src="../js/public.js"></script>
+	<script src="../js/fn.js"></script>
+	<script>
+		
+		
+		var Data=[];
+		var newData=[];
+		var Top=willFiexd.offsetTop;
+		window.onscroll=function(){
+			RightList();
+			headerScroll();
+			leftList()
+		}
+		function v1(Data){
+			const v1 =new Vue({
+				el:'#v1',
+				data:{
+					content:'',
+					arr:Data,
+					arr2:newData,
+					pageNum:0,
+					artHref:'http://www.work.com/art.html'
+				},
+				methods:{
+					time:function(timestamp) {
+				        return new Date( parseInt(timestamp) ).toLocaleString().replace(/:\d{1,2}$/,' '); 
+				 },
+				 pageup:function(pageNum){
+				 	console.log(pageNum)
+				 	if(pageNum<0){
+				 		pageNum=0;
+				 	}else if(pageNum>Math.floor(this.arr.length/10)){
+				 		pageNum=Math.floor(this.arr.length/10);
+				 	}
+				 	this.pageNum = pageNum;
+				 	var num=(pageNum)*10;
+				   	this.arr2=this.arr.slice(num,num+10);
+				   	console.log(num,num+10)
+				   }
+					
+				}
+					
+			})
+		}
+	
+			ajax({
+		    	url: "php/search.php",  
+			    type : "POST", 
+			    async : true,  
+			    data : {   
+			    		like:get_get().substring(5)
+			    },
+			    success : function(data){   //返回接受信息
+					data=JSON.parse(data);
+					console.log(data);
+					for(var i=0;i<data.length;i++){
+							Data.push(data[i]);
+					}
+					for(var i=0;i<data.length;i++){
+							if(i>=10){
+								break;
+							}
+							newData.push(data[i]);
+							
+					}
+					v1(Data);
+			    }
+			});
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	var Data2=[];
+	function v2(Data){
+			const v2 =new Vue({
+				el:'#v2',
+				data:{
+					content:true,
+					arr:Data,
+					artHref:'http://www.work.com/page/art.html'
+				},
+				methods:{
+					time:function(timestamp) {
+				        return new Date( parseInt(timestamp) ).toLocaleString().replace(/:\d{1,2}$/,' '); 
+				 	 },
+				 	fn1:function(){
+				 		
+				 		this.content=true;
+				 	},
+					fn2:function(){
+				 		this.content=false;
+				 	}
+				 }
+				
+					
+			})
+		}
+		
+		ajax({
+			    url : "php/index.php",  
+			    type : "POST", 
+			    async : true,  
+			    data : {   
+			    		sort:'art.read_num'
+			    },
+			    success : function(data){   //返回接受信息
+					data=JSON.parse(data);
+					for(var i=0;i<data.length;i++){
+							Data2.push(data[i]);
+					}
+					v2(Data2);
+			    }
+			});
+		
+		
+		
+	</script>
+</body>
+</html>

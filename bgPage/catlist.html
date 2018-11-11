@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/adm.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src='../js/public.js'></script>
+   <script src='../js/fn.js'></script>
+    <script src="../js/quit.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Blog后台管理界面</h1>
+         <p style="position: absolute;top:40px;right:300px;width：300px">
+        	<img src="../images/1.jpg" style='display:inline-block;vertical-align:middle;border-radius:50%;' width="80px" height="80px"  alt="" />
+        	<span style="vertical-align:middle;">
+        		欢迎您登录blog管理系统
+        		<a onclick="quit()">退出</a>
+        	</span>
+        </p>
+    </header>
+    <div id="main">
+        <div id="lside">
+            <aside>
+                <h4>栏目管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/catlist.html">栏目列表</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>文章管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/artlist.html">文章列表</a></li>
+                    <li><a href="http://www.work.com/bgPage/artadd.html">发布文章</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>个人中心</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/bloger.html">修改密码</a></li>
+                    <li><a href="login">退出登陆</a></li>
+                </ul>
+            </aside>
+        </div>
+        <div id="rside">
+            <table class="list">
+                <tr>
+                    <td>序号</td>
+                    <td>栏目名称</td>
+                    <td>文章数</td>
+                    <td>操作</td>
+                </tr>
+              
+                	<tr v-for="num of arr">
+	                    <td>{{num.cat_id}}</td>
+	                    <td>{{num.cat_name}}</td>
+	                    <td><span class="badge">{{num.art_num}}</span></td>
+	                    <td><a @click="edit(num.cat_id)">编辑</a></td>
+                	</tr>
+                	
+                
+                <?php }?>
+            </table>
+        </div>
+    </div>
+    <footer>
+        Copyright &copy; 2015 · GeneratePress · WordPress
+    </footer>
+    
+    <script>
+    	var Data=[];
+	 	
+	 	 function v1(data){
+	 	    var v1 =new Vue({
+				el:'.list',
+				data:{
+					content:'',
+					arr:Data
+				},
+				methods:{
+					edit:function(id){
+				   		window.location.href='http://www.work.com/bgPage/catadd.html?id='+id;
+					}
+				}
+					
+			})
+	 	 	
+	 	 }
+		 window.onload=function(){
+		 	ajax({
+			    url : "php/catlist.php",  
+			    type : "POST", 
+			    async : true,  
+			    data : {   
+			    		table:'art',
+			    		where:''
+			    },
+			    success : function(data){   //返回接受信息
+			    	
+			    	var i=0;
+					data=JSON.parse(data);
+					arr =data;
+					for(var i=0;i<data.length;i++){
+							Data.push(data[i]);
+					}
+					console.log(Data);
+					v1(Data);
+			    }
+			    });
+			
+		 	
+		
+		 }
+    	
+    </script>
+</body>
+</html>

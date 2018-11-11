@@ -1,0 +1,25 @@
+.art_content{
+	width: 100%;
+	padding: 20px;
+	background-color: #fff;
+	
+}
+.art_content .content span{
+	margin: 0 10px;
+}
+.introduction{
+	background-color:#F6F6F6;
+	color: #888888;
+	width: 100%;
+	padding:10px;
+	height: auto;
+}
+.art_content .content .goodNumber{
+	width: 160px;
+	height: 45px;
+	border-radius: 8px;
+	margin: auto;
+	background-color: #E2523A;
+	color: #fff;
+	display: block;
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/adm.css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src='../js/public.js'></script>
+<script src='../js/fn.js'></script>
+ <script src="../js/quit.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Blog后台管理界面</h1>
+             <p style="position: absolute;top:40px;right:300px;width：300px">
+        	<img src="../images/1.jpg" style='display:inline-block;vertical-align:middle;border-radius:50%;' width="80px" height="80px"  alt="" />
+        	<span style="vertical-align:middle;">
+        		欢迎您登录blog管理系统
+        		<a onclick="quit()">退出</a>
+        	</span>
+        </p>
+    </header>
+    <div id="main">
+        <div id="lside">
+            <aside>
+                <h4>栏目管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/catlist.html">栏目列表</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>文章管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/artlist.html">文章列表</a></li>
+                    <li><a href="http://www.work.com/bgPage/artadd.html">发布文章</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>个人中心</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/bloger.html">修改密码</a></li>
+                    <li><a  onclick="quit()">退出登陆</a></li>
+                </ul>
+            </aside>
+        </div>
+        
+        <div id='v1'>
+        	
+        	
+      
+        <div id="rside">
+           
+            	<div class="form-group">
+                    <label>账号:</label>
+                    <p>
+                        <input type="text" value="1" id="user" v-model="user" >
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>密码:</label>
+                    <p>
+                        <input type="text" name="catname" id='psd' v-model="psd">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>新的密码:</label>
+                    <p>
+                        <input type="text" name="catname" id='newPsd' v-model="newPsd">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <p>
+                        <button id='btn' @click="fn1">提交</button>
+                    </p>
+                </div>
+         
+        </div>
+          </div>
+    </div>
+<!---->
+
+<!---->
+    <footer>
+        Copyright &copy; 2015 · GeneratePress · WordPress
+    </footer>
+    
+    
+    <script>
+
+		
+		
+  
+		 v1= new Vue({
+				el:'#rside',
+				data:{
+					user:'',
+					psd:'',
+					newPsd:''
+				},
+				methods:{
+					fn1:function(){
+						 ajax({
+						    url : "php/changePsd.php",  // url---->地址
+						    type : "POST",   // type ---> 请求方式
+						    async : true,   // async----> 同步：false，异步：true 
+						    data : {   //传入信息
+						    		user:this.user,
+						    		psd:this.psd,
+						    		newPsd:this.newPsd
+						    },
+						    success:function(data){   //返回接受信息
+						       alert(data);
+						       if(data=='修改成功'){
+						       		window.location.href='http://www.work.com/bgPage/catlist.html';
+						       }
+						        
+						    }
+						});
+					}
+				}
+			});
+			
+		
+    	
+
+    </script>
+</body>
+</html>

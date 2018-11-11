@@ -1,0 +1,12 @@
+<?php 
+require('ini.php');
+if(isset($_SESSION['username'])){
+	if($_SESSION['username']!=$_COOKIE['user']){
+		exit();
+	}
+}else{
+	exit();
+}
+$_POST['content']=str_replace('#','&nbsp;',$_POST['content']);
+myInsert('art',$_POST);
+?>

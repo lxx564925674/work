@@ -1,0 +1,263 @@
+body{
+	background-color:#EFEFEF;;
+	margin-top:88px ;
+}
+ul{list-style: none;padding:0 ;}
+a{text-decoration:none;color: #000;}
+a:hover{
+	text-decoration: none;!important;
+}
+.clearfix::after{
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.pos-a{
+	position: absolute;
+}
+#header{
+	width:100%;
+	height:68px;
+	background-color:#fff;
+	line-height:68px;
+	position: fixed;
+	top:0;
+	transition:all 1s;
+	z-index:9;
+}
+#header .col-md-1{
+	font-size: 16px;
+	padding:0 5px;
+}
+
+#header a:hover{
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+#header .col-md-1:not(:last-child):hover{
+	background-color:#3690CF;
+	color: #fff;
+}
+.glyphicon{
+	font-size: 20px;
+}
+
+.swiper-container img{
+	width: 100%;
+	height: 100%;
+}
+.swiper-slide p{
+	position:absolute;
+	width: 100%;
+	line-height: 50px;
+	top:75%;
+	color: #fff;
+	background-color: rgba(0,0,0,30%);
+}
+.msh-list{
+	width: 100%;
+	padding-top:30px ;
+}
+.msh-list >div{
+	height: 110px;
+	margin-bottom:10px ;
+}
+.msh-list >div >div{
+	width:48%;
+	height: 100%;
+	background-color: #fff;
+	padding:20px;
+	margin-bottom: 10px;
+}
+.msh-list >div >div a{
+	width: 120px;
+	height: 75px;
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: middle;
+}
+.msh-list >div >div a img{
+	display:inline-block;
+	
+	transition: all 0.5s;
+}
+.msh-list >div >div img:hover{
+	transform: scale(1.1);
+}
+.msh-list >div >div span{
+	display:inline-block;
+	width: 160px;
+	padding-left:20px ;
+	vertical-align: middle;
+	white-space:normal;
+}
+.msh-list >div >div span:hover{
+	color:#3690CF;
+}
+
+.msh-list2 >div{
+	height: 150px;
+	position: relative;
+	padding:10px;
+	overflow:hidden;
+}
+.msh-list2 >div span{
+	display:inline-block;
+	width: calc(100% - 20px);
+	text-align: center;
+	position: absolute;
+	top:60%;
+	background-color:rgba(0,0,0,30%);
+	color:#fff;
+	transition: 0.5s;
+}
+.msh-list2 >div img{
+	transition: 0.5s;
+}
+.msh-list2 >div img:hover{
+	transform: scale(1.1);
+}
+.msh-list2 >div img:hover +span{
+	transform: scale(1.1);
+}
+.blog-tab{
+	width: 100%;
+	font-size:16px;
+	background-color: #fff;
+	line-height: 50px;
+	padding:0 20px;
+	border-radius:5px;
+	color: #3690CF;
+}
+
+.recommend  .recommend-img{
+	overflow:hidden ;
+	width: 200px;
+}
+.recommend  >div{
+	background-color: #fff;
+}
+.recommend  >div h4{
+	border-left:5px solid #3690CF;
+	font-size:24px;
+	padding-left:20px ;
+}
+.recommend  >div>div{
+	padding-left:20px ;
+}
+
+.recommend  >div>div>img{
+	transition: all 0.5s;
+}
+.recommend  .recommend-img img:hover{
+	transform: scale(1.1);
+}
+.recommend-text{
+	width:calc(100% - 220px);
+	margin-top:10px ;
+}
+.recommend-msg span{
+	font-size: 14px;
+}
+.recommend-msg b{
+	font-weight: normal;
+	margin-right: 15px;
+}
+.recommend-list{
+	transition:all 1s;
+	margin-bottom:20px;
+	padding-bottom: 20px;
+}
+.tag{
+	width: 100%;
+	height: 200px;
+	position: relative;
+	margin-bottom: 10px;
+}
+.tag span{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 8px;
+	top:20px;
+	left: 40px;
+	display:inline-block;
+	background-color:rgba(92,164,215,60%) ;
+	color: #fff;
+}
+.tag p{
+	width:100% ;
+	bottom:0;
+	left:0px;
+	line-height: 40px;
+	text-align: center;
+	color: #fff;
+	margin: 0;
+	background-color:rgba(0,0,0,60%) ;
+}
+.tag a{
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,20%);
+	transition: 0.5s;
+}
+.tag a:hover{
+	background-color: rgba(0,0,0,0%);
+}
+.blog-panel img{
+	float:left; 
+	clear: both;
+	align:center;
+	hspace:8;
+	vspace:8;
+}
+.blog-panel{
+	overflow: hidden;
+}
+.pic-panel .panel-body img{
+	margin:5px;
+}
+.panel-heading-left{
+	display:inline-block;
+	padding-right:20px;
+	margin-right:20px;
+	border-right:1px solid #aaa;
+}
+.panel-heading a{
+	color: #000;
+	text-decoration: none;
+}
+.panel-heading span:hover a{
+	color:#338dcd;
+}
+.panel-body li::before{
+	content:'>';
+	position: absolute;
+	left:40px;
+	font-weight: bold;
+	color: #aaa;
+}
+#classify{
+	width: 100%;
+	line-height:40px;
+	background-color: #fff;
+}
+#classify span{
+	display: inline-block;
+	width:80px;
+	margin:0 20px ;
+	text-align: center;
+
+}
+.bor-b-blue{
+	border-bottom: 3px solid #3690cf;
+}
+#search{
+	width: 100px;
+}

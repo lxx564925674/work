@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/adm.css">
+   <script src='../js/fn.js'></script>
+    <script src="../js/quit.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Blog后台管理界面</h1>
+         <p style="position: absolute;top:40px;right:300px;width：300px">
+        	<img src="../images/1.jpg" style='display:inline-block;vertical-align:middle;border-radius:50%;' width="80px" height="80px"  alt="" />
+        	<span style="vertical-align:middle;">
+        		欢迎您登录blog管理系统
+        		<a onclick="quit()">退出</a>
+        	</span>
+        </p>
+    </header>
+    <div id="main">
+        <div id="lside">
+            <aside>
+                <h4>栏目管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/catlist.html">栏目列表</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>文章管理</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/artlist.html">文章列表</a></li>
+                    <li><a href="http://www.work.com/bgPage/artadd.html">发布文章</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>个人中心</h4>
+                <ul>
+                    <li><a href="http://www.work.com/bgPage/bloger.html">修改密码</a></li>
+                    <li><a href="login">退出登陆</a></li>
+                </ul>
+            </aside>
+        </div>
+        <div id="rside" class="list">
+            <table>
+                <tr>
+                    <td>序号</td>
+                    <td>日期</td>
+                    <td>标题</td>
+                    <td>分类</td>
+                    <td>回复</td>
+                    <td>操作</td>
+                </tr>
+           			 <tr v-for="(item,index) of arr">
+	                    <td>{{index+1}}</td>
+	                    <td>{{ time(item.pubtime)}}</td>
+	                    <td>{{item.title}}</td>
+	                    <td>{{item.catid}}</td>
+	                    <td><span class="badge">{{item.comment_num}}</span></td>
+	                    <td>
+	                    	<a @click="fn3(num.artid)">编辑</a>/<a @click="del(item.artid)">删除</a>
+	                    </td>
+	                 </tr>
+		      
+          
+            </table>
+            <div id="pagebar">
+                <a @click="pageup">上一页</a>
+             	<a @click="pagedown">下一页</a>
+             	<a @click="pageUp">首页</a>
+             	<a @click="pageDown">未页</a>
+             	<a href="#">当前页：{{Math.floor(pageNum/5)}}</a>
+            </div>
+        </div>
+    </div>
+    <!--         debug             -->
+		
+	
+<!--               debug-->
+    <footer>
+        Copyright &copy; 2015 · GeneratePress · WordPress
+    </footer>
+     <script src='../js/public.js'></script>
+    <script>
+    	
+	 	var Data=[];
+	 	var Data2=[];
+	 	 var v1 =new Vue({
+				el:'.list',
+				data:{
+					content:'',
+					arr:Data,
+					arr2:Data2,
+					pageNum:0,
+				},
+				methods:{
+					fn1:function(){
+						this.arr.push(this.content);
+						this.content='';
+					},
+					time:function(timestamp) {
+				        return new Date( parseInt(timestamp) ).toLocaleString().replace(/:\d{1,2}$/,' '); 
+				   },
+				   pageup:function(){
+				   	 if(this.pageNum>=5){this.pageNum-=5}else{
+				   	 	this.pageNum=0;
+				   	 }
+				   	 this.arr=this.arr2.slice(this.pageNum,this.pageNum+5);
+				   },
+				   pagedown:function(){
+				    this.pageNum+=5;
+				    if(this.pageNum>=this.arr2.length){
+				    	this.pageNum=this.arr2.length;
+				    	this.arr=this.arr2.slice(this.arr2.length-this.arr2.length%5,this.arr2.length);
+				    }else{
+				    	 this.arr=this.arr2.slice(this.pageNum,this.pageNum+5);
+				    }
+				   	
+				   },
+				   pageDown:function(){
+				   	this.pageNum=this.arr2.length;
+				   	 this.arr=this.arr2.slice(this.arr2.length-this.arr2.length%5,this.arr2.length);
+				   },
+				   pageUp:function(){
+				   	this.pageNum=0;
+				   	this.arr=this.arr2.slice(this.pageNum,this.pageNum+5);
+				   },
+				   fn3:function(a){
+				   		window.location.href='http://www.work.com/bgPage/artedit.html?id='+a;
+				   },
+				   del:function(a){
+				   		ajax({
+						    url : "php/artdel.php",  
+						    type : "POST", 
+						    async : true,  
+						    data : {   
+						    		where:'artid='+a
+						    },
+						    success : function(data){   //返回接受信息
+						    	alert('删除成功');
+						    	window.location.reload();
+						    }
+					    });
+				   }
+				}
+			})
+		 window.onload=function(){
+		 	ajax({
+			    url : "php/artlist.php",  
+			    type : "POST", 
+			    async : true,  
+			    data : {   
+			    		table:'art',
+			    		where:''
+			    },
+			    success : function(data){   //返回接受信息
+			    	var i=0;
+					data=JSON.parse(data);
+					arr =data;
+					for(var i=0;i<data.length;i++){
+							Data2.push(data[i]);
+					}
+					for(var i=0;i<data.length;i++){
+							if(i>=5){
+								break;
+							}
+							Data.push(data[i]);
+							
+					}
+			    }
+			    });
+			
+		 	
+		
+		 }
+			
+		
+    </script>
+</body>
+</html>

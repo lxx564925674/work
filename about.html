@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/public.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/about.css"/>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<title>Document</title>
+</head>
+<body>
+	<div id="header" class='text-center'>
+		<div class="container nav nav-pills" >
+			<div class="col-md-3">
+				<h3>李晓翔的博客</h3>
+			</div>
+			<div class="col-md-1"><a href="./index.html">首页</a></div>
+			<div class="col-md-1"><a href="./about.html">关于我</a></div>
+			<div class="col-md-1"><a href="./pic.html">图片锦集</a></div>
+			<div class="col-md-1"><a href="./life.html">慢生活</a></div>
+			<div class="col-md-1"><a href="./study.html">学无止境</a></div>
+			<div class="col-md-1"><a href="./time.html">时间轴</a></div>
+			<div class="col-md-1"><a href="./commen.html">留言</a></div>
+			<div class="col-md-1">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</div>
+		</div>
+	</div>
+	<div class="container" id='v1'>
+		<ul class="about-walls clearfix">
+			<li class="wall-img" v-for="(item,index) of arr.slice(0,8)" v-if="index<4 && index%2==0">
+				<a v-bind:href="artHref+'?id='+item.artid" >
+					<img v-bind:src="item.art_img"  width="100%" height="100%" />
+					<p style="position: absolute;top:0;left: 0;">{{item.title}}</p>
+				</a>
+			</li>
+			<li class="wall-img" v-else-if="index>=4 && index%2==1">
+				<a v-bind:href="artHref+'?id='+item.artid" >
+					<img v-bind:src="item.art_img"  width="100%" height="100%" />
+					<p style="position: absolute;top:0;left: 0;">{{item.title}}</p>
+				</a>
+			</li>
+			
+			<li class="wall-text" v-else>
+				<a v-bind:href="artHref+'?id='+item.artid" >
+					<p>{{item.title}}</p>
+				</a>
+				
+			</li>
+		</ul>
+		
+		
+		<div class="blogger-intro">
+			<h1>博主简介</h1>
+			  <ul class="nav nav-tabs" id='myTabs' role="tablist">
+			    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">基本信息</a></li>
+			    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">工作技能</a></li>
+			    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">心路历程</a></li>
+			    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">我的博客</a></li>
+			  </ul>
+			
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="home">
+			    	<p>网名：窝塔优嘟隐 | 李晓翔 </p>
+			    	<p>职业：web全栈工程师</p>
+			    	<p>邮箱：564925674@qq.com</p>
+			    	<p>
+			    		个人微信<strong>：</strong><br>
+			    		<img src="../images/timg.gif" alt="" />
+			    		
+			    	</p>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="profile">
+			    	<h3>工作技能</h3>
+			    	<p>1、web前端页面的开发</p>
+			    	<p>2、根据产品需求，配合后端开发人员协作实现前端页面效果和功能</p>
+			    	<p>3、能够进行手机端和Pc端Html页面制作</p>
+			    	<p>4、熟练使用html5，CSS3，javascript，熟悉页面架构和布局</p>
+			    	<p>5、熟练使用Javascript框架</p>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="messages">
+			    	<h3>心路历程</h3>
+			    	<p><a href="#">【走进心灵】个人博客，属于我的小世界！</a></p>
+			    	<p><a href="#">【爱设计】安静地做一个爱代码的男子</a></p>
+			    	<p><a href="#">【匆匆那些年】总结个人博客经历的这四年</a></p>
+			    	<p><a href="#">分享我的个人博客访问量如何做到IP从10到600的</a></p>
+			    	<p><a href="#">个人博客从简不繁</a></p>
+			    	<p><a href="#">如果个人博客网站再没有价值，你还会坚持吗？</a></p>
+			    	<p><a href="#">Web之路，经历了心酸之后</a></p>
+			    	
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="settings">
+			    	<h3>我的博客：</h3>
+			    	<p>域 名：www.yangqq.com 创建于2011年01月12日 </p>
+			    	<p>服务器：阿里云服务器  <a href="https://promotion.aliyun.com/ntms/yunparter/invite.html" style="color: red;">前往阿里云官网购买</a>>></p>
+			    	<p>备案号：蜀ICP备11002373号-1</p>
+					<p>程 序：PHP</p>
+					<h3>微信扫码</h3>
+					<p>
+						<img src="../images/timg.gif" alt="" />
+					</p>
+
+			    </div>
+			  </div>
+		</div>
+	</div>
+	
+	
+
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src='../js/public.js'></script>
+<script type="text/javascript">
+		$('#myTabs a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show')
+		})
+		window.onscroll=function(){
+			headerScroll();
+		}
+		
+		
+		
+		
+		function v1(Data){
+			const v1 =new Vue({
+				el:'#v1',
+				data:{
+					content:'',
+					arr:Data,
+					artHref:'http://www.work.com/art.html'
+				},
+				methods:{
+					time:function(timestamp) {
+				        return new Date( parseInt(timestamp) ).toLocaleString().replace(/:\d{1,2}$/,' '); 
+				  }
+					
+				}
+					
+			})
+		}
+		var Data=[];
+			ajax({
+		    	url: "php/index.php",  
+			    type : "POST", 
+			    async : true,  
+			    data : {   
+			    		sort:'art.pubtime'
+			    },
+			    success : function(data){   //返回接受信息
+					data=JSON.parse(data);
+					for(var i=0;i<data.length;i++){
+							Data.push(data[i]);
+					}
+					v1(Data);
+			    }
+			});
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+#timeList{
+	background-color: #fff;
+	padding: 30px;
+}
+#timeList >ul li{
+	line-height:30px;
+	font-size:16px;
+	
+}
+#timeList >ul li p{
+	margin: 0;
+}
+#timeList >ul li span{
+	color: #999999;
+	padding:0 20px ;
+	display: inline-block;
+	width: 200px;
+}
+#timeList >ul li a{
+	height:50px;
+	display:inline-block;
+	position: relative;
+	padding:10px 20px ;
+	
+	border-left:2px solid #AAAAAA ;
+}
+#timeList >ul li a::before{
+	content: '';
+	width: 16px;
+	height:16px;
+	display:block;
+	border: 2px solid #aaa;
+	border-radius: 50%;
+	position: absolute;
+	left: -9px;
+	top:15px;
+	transition: all 0.5s;
+}
+#timeList >ul li a:hover{
+	text-decoration: none;
+}
+#timeList >ul li a:hover::before{
+	background-color:#3690cf;
+}
+#timeList nav{
+	margin-left:calc(50% - 150px);
+	
+}
+
